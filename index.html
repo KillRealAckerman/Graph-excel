@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Creator</title>
+    <style>
+.graph {
+        flex-basis: 50%;
+        display: flex;
+        flex-direction: column
+        }
+.graph > div {
+        width: 100%;
+        }
+body {
+        background: #5d6656;
+        background: radial-gradient(
+    circle at 30% 30%,         
+    rgba(70, 77, 63, 0.79) 22%, rgba(56, 39, 39, 1) 91%    
+  );
+        background-attachment: fixed;
+        background-size: cover;
+        margin: 0;
+}
+div.graph + div {
+        flex-basis: 50%;
+        height: 25vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+main{
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+}
+      input[type="file"] {
+     
+      }
+      input[type="file"]::file-selector-button {
+        width: 10vw;
+        height: 5vh;
+        border-radius: 1rem;
+    border: 1px solid #00bcd4;
+    transition: all 0.4s ease;
+    font-size: 150%;
+    color: #ffffff;  
+    background-color: #02cc56;
+    
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #26c6da;
+          height: 10vw;
+          width: 10vw;
+  border-radius: 50%;
+}
+    </style>
+</head>
+<body>
+<main>
+    <div class="graph"> 
+   <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <div>
+    <canvas id="myChart2"></canvas>
+  </div>
+  </div>
+  <div>
+<label class="upload-btn">
+  Загрузить файл
+  <input type="file" id="excelInput" accept=".xlsx,.xls">
+</label>
+  </div>
+</main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
