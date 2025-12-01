@@ -3,7 +3,7 @@ const ctx2 = document.getElementById("myChart2");
 
 const input = document.getElementById("excelInput");
 
-let chart = null; // здесь будем хранить один общий Chart
+let chart = null;
 
 input.addEventListener("change", handleFile);
 
@@ -18,50 +18,43 @@ async function handleFile(e) {
 
   console.log("rows:", rows);
 
-  // превращаем КАЖДУЮ строку в массив чисел
   const series = rows
     .map((row) =>
       row.filter((v) => v !== undefined && v !== null && v !== "").map(Number)
     )
-    .filter((arr) => arr.length > 0); // выкидываем пустые строки
+    .filter((arr) => arr.length > 0);
 
   if (series.length === 0) {
     console.log("В таблице нет непустых строк");
     return;
   }
 
-  // делаем подписи по X: 1, 2, 3, ... по длине самой длинной строки
   const maxLen = Math.max(...series.map((arr) => arr.length));
   const labels = Array.from({ length: maxLen }, (_, i) => i + 1);
 
-  // цвета для разных строк
   const colors = ["orange", "purple", "brown", "green", "red", "blue"];
-
-  // собираем наборы данных для Chart.js: одна строка Excel → один dataset
   const datasets = series.map((data, index) => {
     const color = colors[index % colors.length];
     return {
-      label: `Строка ${index + 1}`, // подпись в легенде
-      data, // значения из строки
-      borderColor: color, // цвет линии
-      pointBackgroundColor: color, // цвет точек
+      label: `Строка ${index + 1}`,
+      data,
+      borderColor: color,
+      pointBackgroundColor: color,
       borderWidth: 4,
       pointHoverRadius: 7,
       pointRadius: 4,
       backgroundColor: "rgba(255, 255, 255, 0.82)",
       borderRadius: 3,
-      pointStyle: "triangle", // "circle", "rect", "triangle", "cross",
+      pointStyle: "triangle",
     };
   });
 
   console.log("datasets:", datasets);
 
-  // если график уже есть — удаляем его, чтобы не наслаивался
   if (chart) {
     chart.destroy();
   }
 
-  // создаём ОДИН график с несколькими линиями (по числу строк)
   chart = new Chart(ctx, {
     type: "line",
     data: {
@@ -70,40 +63,40 @@ async function handleFile(e) {
     },
     options: {
       animation: {
-        duration: 800, // время анимации в мс
-        easing: "easeOutQuart", // тип анимации
+        duration: 800,
+        easing: "easeOutQuart",
       },
       responsive: true,
       scales: {
         x: {
           ticks: {
-            color: "#f0f0f0", // цвет подписей по оси X
+            color: "#f0f0f0",
             font: {
               size: 16,
             },
           },
           grid: {
-            color: "rgba(255, 255, 255, 0.46)", // цвет линий
+            color: "rgba(255, 255, 255, 0.46)",
             lineWidth: 1,
-            drawOnChartArea: true, // линии внутри графика
-            drawTicks: true, // рисовать «палочки» на оси
-            borderColor: "#fb0000ff", // рамка вокруг графика
+            drawOnChartArea: true,
+            drawTicks: true,
+            borderColor: "#fb0000ff",
             borderWidth: 1,
           },
         },
         y: {
           ticks: {
-            color: "#f0f0f0", // цвет подписей по оси Y
+            color: "#f0f0f0",
             font: {
               size: 16,
             },
           },
           grid: {
-            color: "rgba(255, 255, 255, 0.46)", // цвет линий
+            color: "rgba(255, 255, 255, 0.46)",
             lineWidth: 1,
-            drawOnChartArea: true, // линии внутри графика
-            drawTicks: true, // рисовать «палочки» на оси
-            borderColor: "#fb0000ff", // рамка вокруг графика
+            drawOnChartArea: true,
+            drawTicks: true,
+            borderColor: "#fb0000ff",
             borderWidth: 1,
           },
         },
@@ -111,7 +104,7 @@ async function handleFile(e) {
       plugins: {
         legend: {
           labels: {
-            color: "#ffffff", // цвет текста в легенде ("Строка 1", "Строка 2" и т.п.)
+            color: "#ffffff",
             font: {
               size: 20,
             },
@@ -132,33 +125,33 @@ async function handleFile(e) {
       scales: {
         x: {
           ticks: {
-            color: "#f0f0f0", // цвет подписей по оси X
+            color: "#f0f0f0",
             font: {
               size: 16,
             },
           },
           grid: {
-            color: "rgba(255, 255, 255, 0.46)", // цвет линий
+            color: "rgba(255, 255, 255, 0.46)",
             lineWidth: 1,
-            drawOnChartArea: true, // линии внутри графика
-            drawTicks: true, // рисовать «палочки» на оси
-            borderColor: "#fb0000ff", // рамка вокруг графика
+            drawOnChartArea: true,
+            drawTicks: true,
+            borderColor: "#fb0000ff",
             borderWidth: 1,
           },
         },
         y: {
           ticks: {
-            color: "#f0f0f0", // цвет подписей по оси Y
+            color: "#f0f0f0",
             font: {
               size: 16,
             },
           },
           grid: {
-            color: "rgba(255, 255, 255, 0.46)", // цвет линий
+            color: "rgba(255, 255, 255, 0.46)",
             lineWidth: 1,
-            drawOnChartArea: true, // линии внутри графика
-            drawTicks: true, // рисовать «палочки» на оси
-            borderColor: "#fb0000ff", // рамка вокруг графика
+            drawOnChartArea: true,
+            drawTicks: true,
+            borderColor: "#fb0000ff",
             borderWidth: 1,
           },
         },
@@ -167,7 +160,6 @@ async function handleFile(e) {
         legend: {
           labels: {
             color: "#ffffff",
-            // цвет текста в легенде ("Строка 1", "Строка 2" и т.п.)
             font: {
               size: 20,
             },
